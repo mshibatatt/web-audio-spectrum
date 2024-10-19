@@ -1,3 +1,5 @@
+import { generateRandomData } from "./generateRandomData";
+
 export const drawCircle = (
     canvasCtx: CanvasRenderingContext2D,
     dataArray: Uint8Array,
@@ -13,10 +15,13 @@ export const drawCircle = (
     // 中心点を設定
     const centerX = canvasWidth / 2;
     const centerY = canvasHeight / 2;
+
+    // データの正規化（スムージング）
+    const data = generateRandomData(dataArray, 800);
   
     // 円周上にデータをマッピングして描画
     for (let i = 0; i < bufferLength; i++) {
-      const value = dataArray[i];
+      const value = data[i];
       const angle = (i / bufferLength) * Math.PI * 2; // 角度を計算
   
       const barHeight = (value / 255) * radius; // 音に基づいた棒の長さ
